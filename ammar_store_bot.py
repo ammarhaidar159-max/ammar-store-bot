@@ -2,7 +2,7 @@ import os, json, logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 
-BOT_TOKEN = os.getenv('BOT_TOKEN', '8610117631:AAGpMvTQDkmcxEYapZrMlD6OjjRykVW8GWU')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 CHANNEL_ID = -1004405014166
 SUPPORT_USER = 'store_spo'
 APP_USER = 'store_spo'
