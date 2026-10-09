@@ -1,3 +1,15 @@
+from flask import Flask
+import threading
+flask_app = Flask(__name__)
+@flask_app.route('/')
+def home():
+    return "Ammar Store Bot is Alive! ✅"
+def run_flask():
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    flask_app.run(host="0.0.0.0", port=port)
+threading.Thread(target=run_flask, daemon=True).start()
+
 import os, json, logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
@@ -164,10 +176,10 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except: await context.bot.send_message(chat_id=CHANNEL_ID,text=order_text,reply_markup=kb)
     await update.message.reply_text('✅ تم تسجيل طلبك ستصلك رسالة تتضمن التفاصيل',reply_markup=main_menu()); user_states.pop(user_id,None)
 def main():
-    app=Application.builder().token(BOT_TOKEN).build()
-    app.add_handler(CommandHandler('start',start))
-    app.add_handler(CallbackQueryHandler(handle_callback))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND,handle_text))
-    app.add_handler(MessageHandler(filters.PHOTO,handle_photo))
-    print('Ammar Store Bot Running...'); app.run_polling()
+    tg_app=Application.builder().token(BOT_TOKEN).build()
+    tg_app.add_handler(CommandHandler('start',start))
+    tg_app.add_handler(CallbackQueryHandler(handle_callback))
+    tg_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND,handle_text))
+    tg_app.add_handler(MessageHandler(filters.PHOTO,handle_photo))
+    print('Ammar Store Bot Running...'); tg_app.run_polling()
 if __name__=='__main__': main()
